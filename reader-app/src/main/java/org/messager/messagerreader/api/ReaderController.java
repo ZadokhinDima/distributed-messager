@@ -24,10 +24,10 @@ public class ReaderController {
         return ResponseEntity.ok(readerService.getChat(chatId));
     }
 
-    @GetMapping("/chat/{chatId}/messages")
+    @GetMapping("/chat/{chatId}/messages/{count}")
     public ResponseEntity<GetMessagesResponse> getMessages(@PathVariable String chatId,
                                                            @RequestHeader("userId") String userId,
-                                                           @RequestBody GetMessagesRequest request) {
-        return ResponseEntity.ok(readerService.getMessages(chatId, userId, request));
+                                                           @PathVariable int count) {
+        return ResponseEntity.ok(readerService.getMessages(chatId, userId, count));
     }
 }

@@ -28,31 +28,20 @@ public class ReaderService {
         return UserDto.fromUser(getUserOrError(id));
     }
 
-    public GetMessagesResponse getMessages(String chatId, String userId, GetMessagesRequest request) {
-        validateMessagesRequest(request);
+    public GetMessagesResponse getMessages(String chatId, String userId, int count) {
         var chat = getChatOrError(chatId);
 
         if (!chat.getParticipantIds().contains(userId)) {
             throw new IllegalArgumentException("User with id '" + userId + "' is not a participant of chat with id '" + chatId + "'");
         }
+        return GetMessagesResponse.builder()
+                .chatId(chatId)
+                .messages(
+                        messageRepository.getLastMessages(chatId, count).stream()
+                                .map(MessageDto::fromMessage)
+                                .toList())
+                .build();
 
-        if (Objects.nonNull(request.getLast())) {
-            return GetMessagesResponse.builder()
-                    .chatId(chatId)
-                    .messages(
-                            messageRepository.getLastMessages(chatId, request.getLast()).stream()
-                                    .map(MessageDto::fromMessage)
-                                    .toList())
-                    .build();
-        } else {
-            return GetMessagesResponse.builder()
-                    .chatId(chatId)
-                    .messages(
-                            messageRepository.getMessagesByTimePeriod(chatId, request.getFrom(), request.getTo()).stream()
-                                    .map(MessageDto::fromMessage)
-                                    .toList())
-                    .build();
-        }
     }
 
     private User getUserOrError(String userId) {
@@ -61,17 +50,5 @@ public class ReaderService {
 
     private Chat getChatOrError(String chatId) {
         return chatRepository.findById(chatId).orElseThrow(() -> new IllegalArgumentException("Chat with id '" + chatId + "' not found"));
-    }
-
-    private void validateMessagesRequest(GetMessagesRequest request) {
-        if (Objects.isNull(request.getLast()) && Objects.isNull(request.getFrom())) {
-            throw new IllegalArgumentException("Either 'last' or 'from' must be provided to filter messages.");
-        }
-        if (Objects.nonNull(request.getLast()) && Objects.nonNull(request.getFrom())) {
-            throw new IllegalArgumentException("Only one of 'last' or 'from' can be provided to filter messages.");
-        }
-        if (Objects.nonNull(request.getFrom()) && Objects.isNull(request.getTo()) ) {
-            request.setTo(LocalDateTime.now());
-        }
     }
 }
