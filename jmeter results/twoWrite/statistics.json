@@ -1,0 +1,50 @@
+{
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 18760,
+    "errorCount" : 6073,
+    "errorPct" : 32.372066,
+    "meanResTime" : 329.0663113006407,
+    "medianResTime" : 175.0,
+    "minResTime" : 0.0,
+    "maxResTime" : 3018.0,
+    "pct1ResTime" : 1054.9000000000015,
+    "pct2ResTime" : 1174.0,
+    "pct3ResTime" : 2186.3899999999994,
+    "throughput" : 2304.102186195038,
+    "receivedKBytesPerSec" : 2175.376927697433,
+    "sentKBytesPerSec" : 360.6744446235569
+  },
+  "Create User" : {
+    "transaction" : "Create User",
+    "sampleCount" : 9380,
+    "errorCount" : 3594,
+    "errorPct" : 38.315563,
+    "meanResTime" : 421.70021321961644,
+    "medianResTime" : 221.0,
+    "minResTime" : 5.0,
+    "maxResTime" : 3018.0,
+    "pct1ResTime" : 1113.0,
+    "pct2ResTime" : 1422.0,
+    "pct3ResTime" : 3005.380000000001,
+    "throughput" : 1152.4757341196707,
+    "receivedKBytesPerSec" : 1158.804732614572,
+    "sentKBytesPerSec" : 147.17813152721465
+  },
+  "Create Chat" : {
+    "transaction" : "Create Chat",
+    "sampleCount" : 9380,
+    "errorCount" : 2479,
+    "errorPct" : 26.428572,
+    "meanResTime" : 236.43240938166258,
+    "medianResTime" : 136.0,
+    "minResTime" : 0.0,
+    "maxResTime" : 1662.0,
+    "pct1ResTime" : 707.0,
+    "pct2ResTime" : 1131.0,
+    "pct3ResTime" : 1305.5700000000015,
+    "throughput" : 1159.1695501730103,
+    "receivedKBytesPerSec" : 1023.2831471283365,
+    "sentKBytesPerSec" : 214.87005877718732
+  }
+}
